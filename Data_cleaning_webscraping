@@ -1,11 +1,11 @@
 #Webscraping using URL
 
-Step -1 install and import the required libraries
+Step -1 Install and import the required libraries
 __________________________________________________________________________________________________________________________________________________________
 ! pip install pandas
 import pandas as pd
 
-Step-2 select an url with table
+Step-2 Select an url with table
 __________________________________________________________________________________________________________________________________________________________
 url = 'https://en.wikipedia.org/wiki/List_of_largest_companies_by_revenue'
 tables= pd.read_html(url)               # reads the info in the html
@@ -17,7 +17,7 @@ ________________________________________________________________________________
 df.head()                                                                                     # returns first 5 rows
 print(df.columns)                                                                             # returns the column names
 df.dtypes                                                                                     # shows the data type of each column
-df[['Rank', 'Revenue', 'Profit']] = df[['Rank', 'Revenue', 'Profit']].astype(int)             #astype helps to change the columns data types
+df[['Rank', 'Revenue', 'Profit']] = df[['Rank', 'Revenue', 'Profit']].astype(int)             # astype helps to change the columns data types
 print(df.columns)  
 
 Step - 4 Remove mutliindex (multiindex - presence of more than one column heading for each column)
@@ -40,7 +40,11 @@ df.columns.values[3] = 'Revenue'                                                
 
 df.columns.values[4] = 'Profit' 
 
-Step-7 Rechek all the column details
+Step-7 Recheck all the column details
 __________________________________________________________________________________________________________________________________________________________
 print(df.columns)
 df.dtypes
+
+Step -8 Save the data to excel file
+__________________________________________________________________________________________________________________________________________________________
+df.to_excel("Top_companies.xlsx", index=False) 
