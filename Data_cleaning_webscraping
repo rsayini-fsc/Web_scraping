@@ -10,9 +10,15 @@ ________________________________________________________________________________
 url = 'https://en.wikipedia.org/wiki/List_of_largest_companies_by_revenue'
 tables= pd.read_html(url)               # reads the info in the html
 len(tables)                             # returns no.of tables
-df=tables[0]                            # storing the reuired table in dataframe
+df=tables[0]                            # storing the required table in dataframe
 
-Step-3 Look the type of data of the columns in the table and perform data type changes
+Step -3 Use regex to remove spaces, symbols from columns
+__________________________________________________________________________________________________________________________________________________________
+df['Revenue'] = df['Revenue'].str.replace(r'[$,]', '', regex=True)                            # removes '$' and ',' signs from revenue and profit columns
+                                                                                                required step to change the data type of such columns
+df['Profit'] = df['Profit'].str.replace(r'[$,]', '', regex=True)
+
+Step-4 Look the type of data of the columns in the table and perform data type changes
 __________________________________________________________________________________________________________________________________________________________
 df.head()                                                                                     # returns first 5 rows
 print(df.columns)                                                                             # returns the column names
@@ -20,18 +26,18 @@ df.dtypes                                                                       
 df[['Rank', 'Revenue', 'Profit']] = df[['Rank', 'Revenue', 'Profit']].astype(int)             # astype helps to change the columns data types
 print(df.columns)  
 
-Step - 4 Remove mutliindex (multiindex - presence of more than one column heading for each column)
+Step - 5 Remove mutliindex (multiindex - presence of more than one column heading for each column)
 __________________________________________________________________________________________________________________________________________________________
 df.columns = df.columns.droplevel(0)                                                          # Drops the first level of the column MultiIndex      
 
 
-Step-5 Remove unwanted columns
+Step-6 Remove unwanted columns
 __________________________________________________________________________________________________________________________________________________________
 df.drop(['Ref.'], axis=1, inplace=True)                                                       # axis=0 removes rows whereas as axis=1 removes coulmns 
                                                                                                 inpplace=True makes changes permanent
 df.drop(['State-owned'], axis=1, inplace=True)
 
-Step-6 Rename columns
+Step-7 Rename columns
 __________________________________________________________________________________________________________________________________________________________
 df.rename(columns={'Headquarters[note 1]':'Headquarters'},inplace=True)
 df.rename(columns={'Ram':'Company'},inplace=True)
@@ -40,11 +46,11 @@ df.columns.values[3] = 'Revenue'                                                
 
 df.columns.values[4] = 'Profit' 
 
-Step-7 Recheck all the column details
+Step-8 Recheck all the column details
 __________________________________________________________________________________________________________________________________________________________
 print(df.columns)
 df.dtypes
 
-Step -8 Save the data to excel file
+Step -9 Save the data to excel file
 __________________________________________________________________________________________________________________________________________________________
 df.to_excel("Top_companies.xlsx", index=False) 
