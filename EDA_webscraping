@@ -64,3 +64,4 @@ ________________________________________________________________________________
 country_employees=df.groupby("Headquarters")["Employees"].sum()
 country_employees=country_employees.sort_values(ascending=False)
 country_employees
+
