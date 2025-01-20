@@ -9,7 +9,7 @@ ________________________________________________________________________________
 count_countries= df.value_counts("Headquarters")
 count_countries
 
-Step - 3 Find aggregates of inetger columns
+Step - 3 Find aggregates of integer columns
 ______________________________________________________________________________________________________________________________________________________________
 
 df.aggregate({
