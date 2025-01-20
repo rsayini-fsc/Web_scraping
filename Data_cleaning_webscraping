@@ -1,0 +1,46 @@
+#Webscraping using URL
+
+Step -1 install and import the required libraries
+__________________________________________________________________________________________________________________________________________________________
+! pip install pandas
+import pandas as pd
+
+Step-2 select an url with table
+__________________________________________________________________________________________________________________________________________________________
+url = 'https://en.wikipedia.org/wiki/List_of_largest_companies_by_revenue'
+tables= pd.read_html(url)               # reads the info in the html
+len(tables)                             # returns no.of tables
+df=tables[0]                            # storing the reuired table in dataframe
+
+Step-3 Look the type of data of the columns in the table and perform data type changes
+__________________________________________________________________________________________________________________________________________________________
+df.head()                                                                                     # returns first 5 rows
+print(df.columns)                                                                             # returns the column names
+df.dtypes                                                                                     # shows the data type of each column
+df[['Rank', 'Revenue', 'Profit']] = df[['Rank', 'Revenue', 'Profit']].astype(int)             #astype helps to change the columns data types
+print(df.columns)  
+
+Step - 4 Remove mutliindex (multiindex - presence of more than one column heading for each column)
+__________________________________________________________________________________________________________________________________________________________
+df.columns = df.columns.droplevel(0)                                                          # Drops the first level of the column MultiIndex      
+
+
+Step-5 Remove unwanted columns
+__________________________________________________________________________________________________________________________________________________________
+df.drop(['Ref.'], axis=1, inplace=True)                                                       # axis=0 removes rows whereas as axis=1 removes coulmns 
+                                                                                                inpplace=True makes changes permanent
+df.drop(['State-owned'], axis=1, inplace=True)
+
+Step-6 Rename columns
+__________________________________________________________________________________________________________________________________________________________
+df.rename(columns={'Headquarters[note 1]':'Headquarters'},inplace=True)
+df.rename(columns={'Ram':'Company'},inplace=True)
+df.columns.values[3] = 'Revenue'                                                               # if there are two columns with same names renaming can be 
+                                                                                                 done by providing the index of the column number
+
+df.columns.values[4] = 'Profit' 
+
+Step-7 Rechek all the column details
+__________________________________________________________________________________________________________________________________________________________
+print(df.columns)
+df.dtypes
