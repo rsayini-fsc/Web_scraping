@@ -1,0 +1,66 @@
+
+Step -1 Find the countries present in the dataset
+______________________________________________________________________________________________________________________________________________________________
+Unique_countries= df["Headquarters"].unique()
+Unique_countries
+
+Step -2 Find countries with highest count of companies
+______________________________________________________________________________________________________________________________________________________________
+count_countries= df.value_counts("Headquarters")
+count_countries
+
+Step - 3 Find aggregates of inetger columns
+______________________________________________________________________________________________________________________________________________________________
+
+df.aggregate({
+    'Revenue': ['sum', 'min','max','mean'],                                         # Gives sum, min, max and mean fro each column
+    'Profit': ['sum', 'min','max','mean'],
+    'Employees': ['sum', 'min','max','mean']})
+
+Step -4 Find top industries based on revenue
+______________________________________________________________________________________________________________________________________________________________
+
+Industry_revenue=df.groupby("Industry")['Revenue'].mean()                           # Gives average revenue based on Industry
+Industry_revenue=Industry_revenue.sort_values(ascending=False)                      # Arranges revenue on descending order
+Industry_revenue
+
+Step-5 Find top industries based on profit
+______________________________________________________________________________________________________________________________________________________________
+Industry_profit=df.groupby("Industry")['Profit'].mean()
+Industry_profit=Industry_revenue.sort_values(ascending=False)
+Industry_profit
+
+Step-6 Find the no.of employees in each industry
+______________________________________________________________________________________________________________________________________________________________
+Industry_employees=df.groupby("Industry")['Employees'].sum()                         # Sums and arranges in descending
+Industry_employees=Industry_employees.sort_values(ascending=False)
+Industry_employees
+
+Step-7 Find maximum and minimum employees in each industry
+______________________________________________________________________________________________________________________________________________________________
+employees_max=df.groupby("Industry")["Employees"].max()                              # Max and min finds the maximum and minimum employees based on each Industry
+employees_max=employees_max.sort_values(ascending=False)
+employees_max
+
+
+employees_min=df.groupby("Industry")["Employees"].min()
+employees_min=employees_min.sort_values(ascending=True)
+employees_min
+
+Step -8 - Find countires with maximum profits and revenue
+______________________________________________________________________________________________________________________________________________________________
+country_profit=df.groupby("Headquarters")["Profit"].sum()                            # Gives total profit/revenue per country
+country_profit=country_profit.sort_values(ascending=False)
+country_profit
+
+
+
+country_revenue=df.groupby("Headquarters")["Revenue"].sum()                          
+country_revenue=country_revenue.sort_values(ascending=False)
+country_revenue
+
+Step- 9 find the country with highest no.of employees
+______________________________________________________________________________________________________________________________________________________________
+country_employees=df.groupby("Headquarters")["Employees"].sum()
+country_employees=country_employees.sort_values(ascending=False)
+country_employees
